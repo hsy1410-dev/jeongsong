@@ -58,6 +58,140 @@ main {
   animation: hero-arrival 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.hero-lawyer-carousel {
+  position: absolute;
+  z-index: 2;
+  top: 11.5%;
+  right: 3.2%;
+  bottom: 12.2%;
+  width: 45%;
+  overflow: hidden;
+  color: #fff;
+  touch-action: pan-y;
+}
+
+.hero-lawyer-slide {
+  display: grid;
+  height: 100%;
+  grid-template-columns: minmax(220px, 0.82fr) minmax(300px, 1fr);
+  align-items: end;
+}
+
+.hero-lawyer-copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding: 72px 0 110px;
+  text-shadow: 0 2px 16px rgb(4 12 38 / 75%);
+  animation: lawyer-copy-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-lawyer-copy > p {
+  margin: 0 0 12px;
+  color: #9fb5ff;
+  font-size: clamp(0.68rem, 0.72vw, 0.88rem);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.hero-lawyer-copy h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.35rem, 2.15vw, 2.65rem);
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.hero-lawyer-copy h2 strong {
+  font-size: 1.28em;
+}
+
+.hero-lawyer-copy h2 span {
+  font-size: 0.58em;
+  font-weight: 500;
+}
+
+.hero-lawyer-copy ul {
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(0.76rem, 0.93vw, 1.08rem);
+  line-height: 1.62;
+}
+
+.hero-lawyer-copy li::before {
+  margin-right: 8px;
+  color: #91aaff;
+  content: "·";
+}
+
+.hero-lawyer-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  align-self: end;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: drop-shadow(0 18px 24px rgb(4 10 28 / 32%));
+  animation: lawyer-photo-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-lawyer-controls {
+  position: absolute;
+  z-index: 3;
+  bottom: 3.2%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.hero-lawyer-arrow {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 50%;
+  color: #fff;
+  background: rgb(11 24 60 / 45%);
+  font-size: 1.05rem;
+  cursor: pointer;
+  place-items: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.hero-lawyer-arrow:hover,
+.hero-lawyer-arrow:focus-visible {
+  border-color: #fff;
+  background: rgb(78 101 201 / 72%);
+  outline: none;
+}
+
+.hero-lawyer-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hero-lawyer-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 42%);
+  cursor: pointer;
+  transition: width 0.25s, border-radius 0.25s, background 0.25s;
+}
+
+.hero-lawyer-dots button.is-active {
+  width: 24px;
+  border-radius: 4px;
+  background: #fff;
+}
+
 .hero-hotspot {
   position: absolute;
   z-index: 2;
@@ -820,18 +954,6 @@ main {
   object-fit: contain;
 }
 
-.credentials-partner {
-  display: grid;
-  padding: clamp(42px, 5vw, 76px) 32px;
-  background: #f8f9fb;
-  place-items: center;
-}
-
-.credentials-partner img {
-  display: block;
-  width: min(100%, 960px);
-}
-
 @keyframes certificate-roll {
   to {
     transform: translateX(-50%);
@@ -1032,6 +1154,16 @@ main {
   }
 }
 
+@keyframes lawyer-copy-in {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes lawyer-photo-in {
+  from { opacity: 0; transform: translateX(32px) scale(1.02); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
 @keyframes consultation-pulse {
   0% { opacity: 0; transform: scale(0.96); }
   20% { opacity: 0.8; }
@@ -1056,6 +1188,24 @@ main {
 }
 
 @media (max-width: 1100px) {
+  .hero-lawyer-carousel {
+    right: 2%;
+    width: 48%;
+  }
+
+  .hero-lawyer-slide {
+    grid-template-columns: minmax(150px, 0.75fr) minmax(210px, 1fr);
+  }
+
+  .hero-lawyer-copy {
+    padding-bottom: 90px;
+  }
+
+  .hero-lawyer-copy ul {
+    margin-top: 14px;
+    font-size: 0.72rem;
+  }
+
   .experience-layout {
     grid-template-columns: 1fr;
   }
@@ -1095,6 +1245,92 @@ main {
 
   .hero-background-video {
     display: none;
+  }
+
+  .hero-lawyer-carousel {
+    top: 56%;
+    right: 0;
+    bottom: 17.8%;
+    left: 0;
+    width: 100%;
+    background: #14234f;
+  }
+
+  .hero-lawyer-slide {
+    position: relative;
+    display: block;
+  }
+
+  .hero-lawyer-photo {
+    position: absolute;
+    z-index: 1;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    width: 54%;
+    height: 100%;
+    background-position: right bottom;
+    filter: none;
+    animation: none;
+  }
+
+  .hero-lawyer-copy {
+    position: absolute;
+    z-index: 2;
+    bottom: 19%;
+    left: 7%;
+    width: 58%;
+    padding: 0;
+    background: none;
+  }
+
+  .hero-lawyer-copy > p {
+    display: none;
+  }
+
+  .hero-lawyer-copy h2 {
+    font-size: clamp(0.9rem, 4.2vw, 1.15rem);
+  }
+
+  .hero-lawyer-copy ul {
+    margin-top: 7px;
+    font-size: clamp(0.48rem, 1.9vw, 0.62rem);
+    line-height: 1.48;
+    word-break: keep-all;
+  }
+
+  .hero-lawyer-copy li:nth-child(n + 3) {
+    display: none;
+  }
+
+  .hero-lawyer-copy li::before {
+    margin-right: 3px;
+  }
+
+  .hero-lawyer-controls {
+    bottom: 3%;
+    left: 7%;
+    gap: 6px;
+    transform: none;
+  }
+
+  .hero-lawyer-arrow {
+    width: 22px;
+    height: 22px;
+    font-size: 0.66rem;
+  }
+
+  .hero-lawyer-dots {
+    gap: 4px;
+  }
+
+  .hero-lawyer-dots button {
+    width: 4px;
+    height: 4px;
+  }
+
+  .hero-lawyer-dots button.is-active {
+    width: 13px;
   }
 
   .section-heading h2,
@@ -1420,10 +1656,6 @@ main {
     padding: 5px;
   }
 
-  .credentials-partner {
-    padding: 18px 0;
-  }
-
   .contact {
     grid-template-columns: 1fr;
     min-height: 0;
@@ -1496,6 +1728,16 @@ main {
 @media (max-width: 420px) {
   .section-shell {
     width: min(100% - 28px, 720px);
+  }
+
+  .hero-lawyer-photo {
+    width: 54%;
+  }
+
+  .hero-lawyer-copy {
+    width: 59%;
+    padding-right: 18px;
+    background: linear-gradient(90deg, #14234f 0 82%, transparent 100%);
   }
 
   .wordmark {
@@ -1590,5 +1832,10 @@ main {
 
   .hero-background-video {
     display: none;
+  }
+
+  .hero-lawyer-copy,
+  .hero-lawyer-photo {
+    animation: none;
   }
 }

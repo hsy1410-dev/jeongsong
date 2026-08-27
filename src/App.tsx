@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type FormEvent,
   type ReactNode,
+  type TouchEvent,
 } from 'react'
 import { saveConsultation } from './lib/firebase'
 import './App.css'
@@ -116,6 +117,69 @@ const certificates = [
   { src: '/assets/certificates/certificate-03.jpg', alt: '2024 대한민국 소비자 선호 브랜드 1위 수상 인증서' },
 ]
 
+const lawyers = [
+  {
+    name: '서지원',
+    image: '/assets/naran-seo-jiwon-transparent.png',
+    careers: [
+      '대한변협 인증 형사법·부동산 전문변호사',
+      '경찰서 경미범죄 심사위원회 위원',
+      '인천본부세관 관세심사위원·세무사',
+    ],
+  },
+  {
+    name: '최지연',
+    image: '/assets/naran-choi-jiyeon-transparent.png',
+    careers: ['이화여자대학교 법학전문대학원 석사', '한국어·영어·일본어 법률 상담'],
+  },
+  {
+    name: '정이든',
+    image: '/assets/naran-jung-ideun-transparent.png',
+    careers: [
+      '대한변협 인증 부동산 전문변호사',
+      '이화여자대학교 법학전문대학원 석사',
+      '영어·중국어 법률 상담',
+    ],
+  },
+  {
+    name: '문인정',
+    image: '/assets/naran-moon-injeong-transparent.png',
+    careers: [
+      '대한변협 인증 형사법 전문변호사',
+      '경북대학교 행정학부 수석 졸업',
+      '경북대학교 법학전문대학원',
+    ],
+  },
+  {
+    name: '강지수',
+    image: '/assets/naran-kang-jisu-transparent.png',
+    careers: ['변호사·변리사 자격', '제주대학교 법학전문대학원', '영어 법률 상담'],
+  },
+  {
+    name: '강수은',
+    image: '/assets/naran-kang-sueun-transparent.png',
+    careers: [
+      '성균관대학교 정치외교학과 수석 졸업',
+      '경북대학교 법학전문대학원',
+      '영어·일본어 법률 상담',
+    ],
+  },
+  {
+    name: '이정민',
+    image: '/assets/naran-lee-jungmin-transparent.png',
+    careers: [
+      '대한변호사협회 미디어소통위원',
+      '경기도교육청 교직원법률지원 변호사',
+      '원광대학교 법학전문대학원',
+    ],
+  },
+  {
+    name: '손수정',
+    image: '/assets/naran-son-sujeong-transparent.png',
+    careers: ['대법원 국선변호인', '경기도 법률상담위원', '형사법 전문분야 등록·변리사'],
+  },
+]
+
 const reviewRows = [
   ['상간녀 소송 증거', '30대 여성의뢰인'],
   ['유흥업소 출입 증거', '40대 여성의뢰인'],
@@ -208,9 +272,24 @@ function SectionTitle({ eyebrow, title, description }: { eyebrow?: string; title
 
 function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [activeLawyer, setActiveLawyer] = useState(0)
+  const [isLawyerSliderPaused, setIsLawyerSliderPaused] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [formMessage, setFormMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const lawyerTouchStart = useRef<number | null>(null)
+
+  useEffect(() => {
+    if (isLawyerSliderPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveLawyer((current) => (current + 1) % lawyers.length)
+    }, 5200)
+
+    return () => window.clearInterval(timer)
+  }, [isLawyerSliderPaused])
 
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>('[data-reveal]')
@@ -283,6 +362,29 @@ function App() {
     }
   }
 
+  function showPreviousLawyer() {
+    setActiveLawyer((current) => (current - 1 + lawyers.length) % lawyers.length)
+  }
+
+  function showNextLawyer() {
+    setActiveLawyer((current) => (current + 1) % lawyers.length)
+  }
+
+  function handleLawyerTouchStart(event: TouchEvent<HTMLDivElement>) {
+    lawyerTouchStart.current = event.touches[0]?.clientX ?? null
+  }
+
+  function handleLawyerTouchEnd(event: TouchEvent<HTMLDivElement>) {
+    if (lawyerTouchStart.current === null) return
+
+    const distance = lawyerTouchStart.current - (event.changedTouches[0]?.clientX ?? lawyerTouchStart.current)
+    lawyerTouchStart.current = null
+
+    if (Math.abs(distance) < 40) return
+    if (distance > 0) showNextLawyer()
+    else showPreviousLawyer()
+  }
+
   return (
     <main>
       <section className="hero-art" id="top" aria-labelledby="hero-title">
@@ -309,8 +411,64 @@ function App() {
         </video>
         <picture className="hero-overlay">
           <source media="(max-width: 767px)" srcSet="/assets/hero-mobile.svg" />
-          <img src="/assets/hero-desktop.svg" alt="탐정법인 정성 소개와 최현민 대표 프로필" />
+          <img src="/assets/hero-desktop.svg" alt="탐정법인 정성 소개" />
         </picture>
+        <div
+          className="hero-lawyer-carousel"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="변호사 소개"
+          onMouseEnter={() => setIsLawyerSliderPaused(true)}
+          onMouseLeave={() => setIsLawyerSliderPaused(false)}
+          onFocus={() => setIsLawyerSliderPaused(true)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setIsLawyerSliderPaused(false)
+          }}
+          onTouchStart={handleLawyerTouchStart}
+          onTouchEnd={handleLawyerTouchEnd}
+        >
+          <article
+            className="hero-lawyer-slide"
+            key={lawyers[activeLawyer].name}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${activeLawyer + 1} / ${lawyers.length}`}
+          >
+            <div className="hero-lawyer-copy">
+              <p>LAWYER</p>
+              <h2><strong>{lawyers[activeLawyer].name}</strong><span> 변호사</span></h2>
+              <ul>
+                {lawyers[activeLawyer].careers.map((career) => <li key={career}>{career}</li>)}
+              </ul>
+            </div>
+            <div
+              className="hero-lawyer-photo"
+              role="img"
+              aria-label={`${lawyers[activeLawyer].name} 변호사`}
+              style={{ backgroundImage: `url("${lawyers[activeLawyer].image}")` }}
+            />
+          </article>
+          <div className="hero-lawyer-controls">
+            <button type="button" className="hero-lawyer-arrow" onClick={showPreviousLawyer} aria-label="이전 변호사">
+              <span aria-hidden="true">←</span>
+            </button>
+            <div className="hero-lawyer-dots" aria-label="변호사 선택">
+              {lawyers.map((lawyer, index) => (
+                <button
+                  type="button"
+                  key={lawyer.name}
+                  className={index === activeLawyer ? 'is-active' : ''}
+                  onClick={() => setActiveLawyer(index)}
+                  aria-label={`${lawyer.name} 변호사 보기`}
+                  aria-current={index === activeLawyer ? 'true' : undefined}
+                />
+              ))}
+            </div>
+            <button type="button" className="hero-lawyer-arrow" onClick={showNextLawyer} aria-label="다음 변호사">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
         <a className="hero-hotspot" href="#contact"><span className="sr-only">바로 상담하기</span></a>
       </section>
 
@@ -461,9 +619,6 @@ function App() {
           </div>
         </div>
 
-        <div className="credentials-partner" data-reveal>
-          <img src="/assets/partner-mobile.svg" alt="법무법인 나란 공식 파트너십" loading="lazy" />
-        </div>
       </section>
 
       <section className="contact" id="contact" aria-labelledby="contact-title">
