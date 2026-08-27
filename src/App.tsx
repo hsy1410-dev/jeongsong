@@ -290,7 +290,24 @@ function App() {
           <h1 id="hero-title">탐정법인 精誠</h1>
           <p>사건의 정확한 진실을 찾고, 의뢰인의 성공적인 내일을 함께합니다.</p>
         </div>
-        <picture>
+        <img
+          className="hero-background hero-background-fallback"
+          src="/assets/building-mobile-ultra.webp"
+          alt=""
+          aria-hidden="true"
+        />
+        <video
+          className="hero-background hero-background-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/assets/building.mp4" type="video/mp4" />
+        </video>
+        <picture className="hero-overlay">
           <source media="(max-width: 767px)" srcSet="/assets/hero-mobile.svg" />
           <img src="/assets/hero-desktop.svg" alt="탐정법인 정성 소개와 최현민 대표 프로필" />
         </picture>
