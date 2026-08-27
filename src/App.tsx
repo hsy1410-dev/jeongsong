@@ -273,23 +273,22 @@ function SectionTitle({ eyebrow, title, description }: { eyebrow?: string; title
 function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [activeLawyer, setActiveLawyer] = useState(0)
-  const [isLawyerSliderPaused, setIsLawyerSliderPaused] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [formMessage, setFormMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const lawyerTouchStart = useRef<number | null>(null)
 
   useEffect(() => {
-    if (isLawyerSliderPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return
     }
 
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       setActiveLawyer((current) => (current + 1) % lawyers.length)
     }, 5200)
 
-    return () => window.clearInterval(timer)
-  }, [isLawyerSliderPaused])
+    return () => window.clearTimeout(timer)
+  }, [activeLawyer])
 
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>('[data-reveal]')
@@ -418,12 +417,6 @@ function App() {
           role="region"
           aria-roledescription="carousel"
           aria-label="변호사 소개"
-          onMouseEnter={() => setIsLawyerSliderPaused(true)}
-          onMouseLeave={() => setIsLawyerSliderPaused(false)}
-          onFocus={() => setIsLawyerSliderPaused(true)}
-          onBlur={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget)) setIsLawyerSliderPaused(false)
-          }}
           onTouchStart={handleLawyerTouchStart}
           onTouchEnd={handleLawyerTouchEnd}
         >
