@@ -479,10 +479,9 @@ function App() {
         >
           <source src="/assets/building.mp4" type="video/mp4" />
         </video>
-        <picture className="hero-overlay">
-          <source media="(max-width: 767px)" srcSet="/assets/hero-mobile.svg" />
-          <img src="/assets/hero-desktop.svg" alt="탐정법인 정성 소개" />
-        </picture>
+        <div className="hero-overlay" aria-hidden="true">
+          <img src="/assets/hero-desktop.svg" alt="" />
+        </div>
         <div
           className="hero-lawyer-carousel"
           role="region"
