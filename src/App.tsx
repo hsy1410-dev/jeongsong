@@ -288,7 +288,71 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [privacyAgreed, setPrivacyAgreed] = useState(false)
   const [formMessage, setFormMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const heroVideoRef = useRef<HTMLVideoElement>(null)
   const lawyerTouchStart = useRef<number | null>(null)
+
+  useEffect(() => {
+    const video = heroVideoRef.current
+    if (!video) return
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (reducedMotion.matches) {
+      video.pause()
+      return
+    }
+
+    // Safari only permits background autoplay when the media stays muted and inline.
+    video.defaultMuted = true
+    video.muted = true
+    video.loop = true
+    video.playsInline = true
+
+    const attemptPlayback = () => {
+      if (document.visibilityState === 'hidden') return
+      void video.play().catch(() => {
+        // iOS Low Power Mode can reject autoplay until the first user gesture.
+      })
+    }
+
+    const removeInteractionListeners = () => {
+      document.removeEventListener('pointerdown', handleUserInteraction, true)
+      document.removeEventListener('touchstart', handleUserInteraction, true)
+      document.removeEventListener('keydown', handleUserInteraction, true)
+    }
+
+    const handleUserInteraction = () => {
+      const playback = video.play()
+      if (!playback) {
+        removeInteractionListeners()
+        return
+      }
+
+      void playback.then(removeInteractionListeners).catch(() => {
+        // Keep listening until a browser-approved interaction starts playback.
+      })
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') attemptPlayback()
+    }
+
+    video.addEventListener('canplay', attemptPlayback)
+    video.addEventListener('ended', attemptPlayback)
+    window.addEventListener('pageshow', attemptPlayback)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    document.addEventListener('pointerdown', handleUserInteraction, { capture: true, passive: true })
+    document.addEventListener('touchstart', handleUserInteraction, { capture: true, passive: true })
+    document.addEventListener('keydown', handleUserInteraction, true)
+    attemptPlayback()
+
+    return () => {
+      video.removeEventListener('canplay', attemptPlayback)
+      video.removeEventListener('ended', attemptPlayback)
+      window.removeEventListener('pageshow', attemptPlayback)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      removeInteractionListeners()
+    }
+  }, [])
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -403,19 +467,14 @@ function App() {
           <h1 id="hero-title">탐정법인 精誠</h1>
           <p>사건의 정확한 진실을 찾고, 의뢰인의 성공적인 내일을 함께합니다.</p>
         </div>
-        <img
-          className="hero-background hero-background-fallback"
-          src="/assets/building-mobile-ultra.webp"
-          alt=""
-          aria-hidden="true"
-        />
         <video
+          ref={heroVideoRef}
           className="hero-background hero-background-video"
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-hidden="true"
         >
           <source src="/assets/building.mp4" type="video/mp4" />
