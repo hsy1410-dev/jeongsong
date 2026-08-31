@@ -479,6 +479,27 @@ function App() {
         >
           <source src="/assets/building.mp4" type="video/mp4" />
         </video>
+        <header className="hero-mobile-header">
+          <a className="hero-mobile-brand" href="#top" aria-label="탐정법인 정성 홈">
+            <img src="/favicon.svg" alt="" />
+            <span>탐정법인 <strong>정성</strong><small>JEONG SEONG</small></span>
+          </a>
+          <a className="hero-mobile-call" href="tel:01076318458">24시간 상담</a>
+        </header>
+        <div className="hero-mobile-intro" aria-hidden="true">
+          <p>탐정법인</p>
+          <strong>정성</strong>
+          <span>
+            사건의 <b>정</b>확한 진실을 찾고,<br />
+            의뢰인의 <b>성</b>공적인 내일을 함께합니다.
+          </span>
+        </div>
+        <a className="hero-mobile-cta" href="#contact">바로 상담하기</a>
+        <ul className="hero-mobile-trust" aria-label="탐정법인 정성 서비스 안내">
+          <li>365일 24시간 상담</li>
+          <li>전국 1,300여 개 지역</li>
+          <li>법무실장 출신 탐정 배치</li>
+        </ul>
         <picture className="hero-overlay" aria-hidden="true">
           <source media="(max-width: 767px)" srcSet="/assets/hero-mobile.svg" />
           <img src="/assets/hero-desktop.svg" alt="" />
