@@ -120,6 +120,7 @@ const certificates = [
 const lawyers = [
   {
     name: '서지원',
+    role: '변호사',
     image: '/assets/naran-seo-jiwon-transparent.png',
     careers: [
       '대한변협 인증 형사법·부동산 전문변호사',
@@ -129,11 +130,13 @@ const lawyers = [
   },
   {
     name: '최지연',
+    role: '변호사',
     image: '/assets/naran-choi-jiyeon-transparent.png',
     careers: ['이화여자대학교 법학전문대학원 석사', '한국어·영어·일본어 법률 상담'],
   },
   {
     name: '정이든',
+    role: '변호사',
     image: '/assets/naran-jung-ideun-transparent.png',
     careers: [
       '대한변협 인증 부동산 전문변호사',
@@ -143,6 +146,7 @@ const lawyers = [
   },
   {
     name: '문인정',
+    role: '변호사',
     image: '/assets/naran-moon-injeong-transparent.png',
     careers: [
       '대한변협 인증 형사법 전문변호사',
@@ -151,12 +155,8 @@ const lawyers = [
     ],
   },
   {
-    name: '강지수',
-    image: '/assets/naran-kang-jisu-transparent.png',
-    careers: ['변호사·변리사 자격', '제주대학교 법학전문대학원', '영어 법률 상담'],
-  },
-  {
     name: '강수은',
+    role: '변호사',
     image: '/assets/naran-kang-sueun-transparent.png',
     careers: [
       '성균관대학교 정치외교학과 수석 졸업',
@@ -166,6 +166,7 @@ const lawyers = [
   },
   {
     name: '이정민',
+    role: '변호사',
     image: '/assets/naran-lee-jungmin-transparent.png',
     careers: [
       '대한변호사협회 미디어소통위원',
@@ -175,8 +176,19 @@ const lawyers = [
   },
   {
     name: '손수정',
+    role: '변호사',
     image: '/assets/naran-son-sujeong-transparent.png',
     careers: ['대법원 국선변호인', '경기도 법률상담위원', '형사법 전문분야 등록·변리사'],
+  },
+  {
+    name: '황용상',
+    role: '고문',
+    image: '/assets/naran-hwang-yongsang.png',
+    careers: [
+      '경찰 재직 35년·수사업무 30년',
+      '경찰청 국가수사본부·서울경찰청 광역수사대',
+      '행정사·학교폭력상담사·탐정사',
+    ],
   },
 ]
 
@@ -416,7 +428,7 @@ function App() {
           className="hero-lawyer-carousel"
           role="region"
           aria-roledescription="carousel"
-          aria-label="변호사 소개"
+          aria-label="법률 전문가 소개"
           onTouchStart={handleLawyerTouchStart}
           onTouchEnd={handleLawyerTouchEnd}
         >
@@ -428,8 +440,8 @@ function App() {
             aria-label={`${activeLawyer + 1} / ${lawyers.length}`}
           >
             <div className="hero-lawyer-copy">
-              <p>LAWYER</p>
-              <h2><strong>{lawyers[activeLawyer].name}</strong><span> 변호사</span></h2>
+              <p>{lawyers[activeLawyer].role === '고문' ? 'ADVISOR' : 'LAWYER'}</p>
+              <h2><strong>{lawyers[activeLawyer].name}</strong><span> {lawyers[activeLawyer].role}</span></h2>
               <ul>
                 {lawyers[activeLawyer].careers.map((career) => <li key={career}>{career}</li>)}
               </ul>
@@ -437,27 +449,27 @@ function App() {
             <div
               className="hero-lawyer-photo"
               role="img"
-              aria-label={`${lawyers[activeLawyer].name} 변호사`}
+              aria-label={`${lawyers[activeLawyer].name} ${lawyers[activeLawyer].role}`}
               style={{ backgroundImage: `url("${lawyers[activeLawyer].image}")` }}
             />
           </article>
           <div className="hero-lawyer-controls">
-            <button type="button" className="hero-lawyer-arrow" onClick={showPreviousLawyer} aria-label="이전 변호사">
+            <button type="button" className="hero-lawyer-arrow" onClick={showPreviousLawyer} aria-label="이전 구성원">
               <span aria-hidden="true">←</span>
             </button>
-            <div className="hero-lawyer-dots" aria-label="변호사 선택">
+            <div className="hero-lawyer-dots" aria-label="구성원 선택">
               {lawyers.map((lawyer, index) => (
                 <button
                   type="button"
                   key={lawyer.name}
                   className={index === activeLawyer ? 'is-active' : ''}
                   onClick={() => setActiveLawyer(index)}
-                  aria-label={`${lawyer.name} 변호사 보기`}
+                  aria-label={`${lawyer.name} ${lawyer.role} 보기`}
                   aria-current={index === activeLawyer ? 'true' : undefined}
                 />
               ))}
             </div>
-            <button type="button" className="hero-lawyer-arrow" onClick={showNextLawyer} aria-label="다음 변호사">
+            <button type="button" className="hero-lawyer-arrow" onClick={showNextLawyer} aria-label="다음 구성원">
               <span aria-hidden="true">→</span>
             </button>
           </div>
