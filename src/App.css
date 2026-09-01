@@ -65,25 +65,6 @@ main {
   animation: hero-arrival 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero-desktop-logo {
-  position: absolute;
-  z-index: 4;
-  top: 0;
-  left: 2.25%;
-  display: grid;
-  width: 3.2%;
-  height: 10.28%;
-  background: #fff;
-  place-items: center;
-}
-
-.hero-desktop-logo img {
-  display: block;
-  width: 78%;
-  height: 80%;
-  object-fit: contain;
-}
-
 .hero-lawyer-carousel {
   position: absolute;
   z-index: 2;
@@ -296,19 +277,12 @@ main {
 .wordmark > span:last-child {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
 .wordmark b {
   font-size: clamp(2rem, 3.8vw, 4.2rem);
   line-height: 1;
   letter-spacing: -0.08em;
-}
-
-.wordmark small {
-  font-size: clamp(1rem, 1.8vw, 2rem);
-  font-weight: 800;
-  line-height: 0.92;
 }
 
 .stats .section-heading::before {
@@ -1269,10 +1243,6 @@ main {
     display: none;
   }
 
-  .hero-desktop-logo {
-    display: none;
-  }
-
   .hero-mobile-header {
     position: absolute;
     z-index: 5;
@@ -1533,10 +1503,6 @@ main {
 
   .wordmark b {
     font-size: clamp(1.7rem, 8vw, 3rem);
-  }
-
-  .wordmark small {
-    font-size: clamp(0.75rem, 3.4vw, 1.3rem);
   }
 
   .stats .section-heading::before {
@@ -1929,16 +1895,8 @@ main {
     gap: 8px;
   }
 
-  .wordmark > span:last-child {
-    gap: 7px;
-  }
-
   .wordmark b {
     font-size: 1.55rem;
-  }
-
-  .wordmark small {
-    font-size: 0.68rem;
   }
 
   .stat-grid {

@@ -506,9 +506,6 @@ function App() {
           <source media="(max-width: 767px)" srcSet="/assets/hero-mobile.svg" />
           <img src="/assets/hero-desktop.svg" alt="" />
         </picture>
-        <span className="hero-desktop-logo" aria-hidden="true">
-          <img src={brandLogo} alt="" />
-        </span>
         <div
           className="hero-lawyer-carousel"
           role="region"
@@ -565,7 +562,7 @@ function App() {
       <section className="stats section-shell" aria-labelledby="stats-title">
         <div className="wordmark" aria-label="탐정법인 정성" data-reveal>
           <img className="wordmark-symbol" src={brandLogo} alt="" />
-          <span><b>탐정법인</b><small>JEONG<br />SEONG</small></span>
+          <span><b>탐정법인 정성</b></span>
         </div>
         <SectionTitle
           title="증거수집, 소송까지"
