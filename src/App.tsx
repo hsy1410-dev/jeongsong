@@ -21,6 +21,8 @@ type IconName =
   | 'people'
   | 'route'
 
+const brandLogo = '/assets/jeongseong-logo-symbol.png'
+
 const faqs = [
   {
     question: '비용이 높은 이유가 광고비나 불필요한 운영비 때문은 아닐까요?',
@@ -481,7 +483,7 @@ function App() {
         </video>
         <header className="hero-mobile-header">
           <a className="hero-mobile-brand" href="#top" aria-label="탐정법인 정성 홈">
-            <img src="/favicon.svg" alt="" />
+            <img src={brandLogo} alt="" />
             <span>탐정법인 <strong>정성</strong><small>JEONG SEONG</small></span>
           </a>
           <a className="hero-mobile-call" href="tel:01076318458">24시간 상담</a>
@@ -504,6 +506,9 @@ function App() {
           <source media="(max-width: 767px)" srcSet="/assets/hero-mobile.svg" />
           <img src="/assets/hero-desktop.svg" alt="" />
         </picture>
+        <span className="hero-desktop-logo" aria-hidden="true">
+          <img src={brandLogo} alt="" />
+        </span>
         <div
           className="hero-lawyer-carousel"
           role="region"
@@ -520,7 +525,7 @@ function App() {
             aria-label={`${activeLawyer + 1} / ${lawyers.length}`}
           >
             <div className="hero-lawyer-copy">
-              <p>{lawyers[activeLawyer].role === '고문' ? 'ADVISOR' : 'LAWYER'}</p>
+              <p>{lawyers[activeLawyer].role === '고문' ? 'ADVISOR' : '자문변호사'}</p>
               <h2><strong>{lawyers[activeLawyer].name}</strong><span> {lawyers[activeLawyer].role}</span></h2>
               <ul>
                 {lawyers[activeLawyer].careers.map((career) => <li key={career}>{career}</li>)}
@@ -559,7 +564,7 @@ function App() {
 
       <section className="stats section-shell" aria-labelledby="stats-title">
         <div className="wordmark" aria-label="탐정법인 정성" data-reveal>
-          <span className="wordmark-symbol">J</span>
+          <img className="wordmark-symbol" src={brandLogo} alt="" />
           <span><b>탐정법인</b><small>JEONG<br />SEONG</small></span>
         </div>
         <SectionTitle

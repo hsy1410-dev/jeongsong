@@ -65,6 +65,25 @@ main {
   animation: hero-arrival 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.hero-desktop-logo {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 2.25%;
+  display: grid;
+  width: 3.2%;
+  height: 10.28%;
+  background: #fff;
+  place-items: center;
+}
+
+.hero-desktop-logo img {
+  display: block;
+  width: 78%;
+  height: 80%;
+  object-fit: contain;
+}
+
 .hero-lawyer-carousel {
   position: absolute;
   z-index: 2;
@@ -267,14 +286,11 @@ main {
 }
 
 .wordmark-symbol {
-  display: grid;
+  display: block;
   width: 56px;
   height: 72px;
-  place-items: center;
-  color: #fff;
-  background: linear-gradient(145deg, #07365f 0 55%, #bababa 55%);
-  clip-path: polygon(0 20%, 58% 0, 58% 30%, 100% 42%, 100% 80%, 42% 100%, 42% 70%, 0 58%);
-  font-size: 0;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .wordmark > span:last-child {
@@ -1253,6 +1269,10 @@ main {
     display: none;
   }
 
+  .hero-desktop-logo {
+    display: none;
+  }
+
   .hero-mobile-header {
     position: absolute;
     z-index: 5;
@@ -1277,9 +1297,9 @@ main {
   }
 
   .hero-mobile-brand img {
-    width: 31px;
-    height: 31px;
-    border-radius: 7px;
+    width: 30px;
+    height: 42px;
+    object-fit: contain;
   }
 
   .hero-mobile-brand span {
