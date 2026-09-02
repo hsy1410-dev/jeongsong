@@ -65,6 +65,19 @@ main {
   animation: hero-arrival 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.hero-specialty-desktop {
+  position: absolute;
+  z-index: 2;
+  top: 19.8%;
+  left: 10.45%;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(0.8rem, 1.75vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-shadow: 0 3px 18px rgb(0 0 0 / 58%);
+}
+
 .hero-lawyer-carousel {
   position: absolute;
   z-index: 2;
@@ -1243,6 +1256,10 @@ main {
     display: none;
   }
 
+  .hero-specialty-desktop {
+    display: none;
+  }
+
   .hero-mobile-header {
     position: absolute;
     z-index: 5;
@@ -1313,6 +1330,18 @@ main {
     color: #fff;
     flex-direction: column;
     text-shadow: 0 3px 22px rgb(0 0 0 / 58%);
+  }
+
+  .hero-mobile-specialty {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 8px;
+    font-size: clamp(0.78rem, 3.7vw, 1rem);
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 
   .hero-mobile-intro p {

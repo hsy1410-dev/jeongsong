@@ -466,7 +466,7 @@ function App() {
     <main>
       <section className="hero-art" id="top" aria-labelledby="hero-title">
         <div className="sr-only">
-          <h1 id="hero-title">탐정법인 精誠</h1>
+          <h1 id="hero-title">불륜 외도 전문 탐정법인 精誠</h1>
           <p>사건의 정확한 진실을 찾고, 의뢰인의 성공적인 내일을 함께합니다.</p>
         </div>
         <video
@@ -488,7 +488,9 @@ function App() {
           </a>
           <a className="hero-mobile-call" href="tel:01076318458">24시간 상담</a>
         </header>
+        <p className="hero-specialty-desktop" aria-hidden="true">불륜 외도 전문</p>
         <div className="hero-mobile-intro" aria-hidden="true">
+          <em className="hero-mobile-specialty">불륜 외도 전문</em>
           <p>탐정법인</p>
           <strong>정성</strong>
           <span>
